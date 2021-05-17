@@ -1,0 +1,152 @@
+{
+    "sdk": 3,
+    "version": 1000,
+    "TPDiscord_Version": "1.0.0",
+    "name": "Touch Portal Advanced Hold",
+    "id": "TouchPortal_AdvancedHold",
+    "plugin_start_cmd": "\"%TP_PLUGIN_FOLDER%TPAdvancedHold\\touchportal_advancedhold.exe\"",
+    "configuration": {
+        "colorDark": "#001F3F",
+        "colorLight": "#0074D9"
+    },
+    "settings": [
+        {
+            "name": "Advanced Hold States",
+            "type": "number",
+            "default": "1",
+            "minValue":1, 
+            "maxValue":100 
+        },
+        {
+            "name": "Advanced Hold Infinite States",
+            "type": "number",
+            "default": "1",
+            "minValue":1, 
+            "maxValue":100 
+        }
+    
+    ],
+    "categories": [
+        {
+            "id": "TP Advanced Hold",
+            "name": "Advanced Hold",
+            "imagepath": "%TP_PLUGIN_FOLDER%TPAdvancedHold/AdvancedHold.png",
+            "actions": [
+                {
+                    "id": "advancedhold_action",
+                    "prefix": "Advanced Hold:",
+                    "name":"Hold Increment",
+                    "type":"communicate",
+                    "tryInline":"true",
+                    "format":"Advanced Hold: Increment {$advancedhold_state_id$} every {$advancedhold_time_val$} {$advancedhold_time_type$}",
+                    "hasHoldFunctionality": true,
+                    "data" :[
+                        {
+                            "id":"advancedhold_state_id",
+                            "type": "choice",
+                            "label":  "Advanced Hold State Id",
+                            "default": "",
+                            "valueChoices":[
+                            ]
+                        },
+                        {
+                            "id":"advancedhold_time_val",
+                            "type": "number",
+                            "label":  "Advanced Hold Time Val",
+                            "default": "1",
+                            "minValue": "1",
+                            "allowDecimals": "false"
+                        },
+                        {
+                         "id":"advancedhold_time_type",
+                         "type":"choice",
+                         "label": "Advanced Hold Time Type",
+                         "default": "milliseconds",
+                         "valueChoices": [
+                             "milliseconds",
+                             "seconds"
+                         ]
+                        }
+                    ]
+                 },
+                 {
+                    "id": "advancedhold_infinite_action",
+                    "prefix": "Advanced Hold:",
+                    "name":"Infinite Loop",
+                    "type":"communicate",
+                    "tryInline":"true",
+                    "format":"Advanced Hold: Infinite Loop {$advancedhold_infinite_state_id$} every {$advancedhold_time_val$} {$advancedhold_time_type$}",
+                    "data" :[
+                        {
+                            "id":"advancedhold_infinite_state_id",
+                            "type": "choice",
+                            "label":  "Advanced Hold Infinite State Id",
+                            "default": "",
+                            "valueChoices":[
+                            ]
+                        },
+                        {
+                            "id":"advancedhold_time_val",
+                            "type": "number",
+                            "label":  "Advanced Hold Time Val",
+                            "default": "1",
+                            "minValue": "1",
+                            "allowDecimals": "false"
+                        },
+                        {
+                         "id":"advancedhold_time_type",
+                         "type":"choice",
+                         "label": "Advanced Hold Time Type",
+                         "default": "milliseconds",
+                         "valueChoices": [
+                             "milliseconds",
+                             "seconds"
+                         ]
+                        }
+                    ]
+                 },
+                 {
+                    "id": "advancedhold_stop_infinite_specific_action",
+                    "prefix": "Advanced Hold:",
+                    "name":"Stop Infinite Loop Specific",
+                    "type":"communicate",
+                    "tryInline":"true",
+                    "format":"Advanced Hold: Stop Infinite Loop for {$advancedhold_infinite_state_id$}",
+                    "data" :[
+                        {
+                            "id":"advancedhold_infinite_state_id",
+                            "type": "choice",
+                            "label":  "Advanced Hold Infinite State Id",
+                            "default": "",
+                            "valueChoices":[
+                            ]
+                        }
+                    ]
+                 },
+                 {
+                    "id": "advancedhold_stop_infinite_all_action",
+                    "prefix": "Advanced Hold:",
+                    "name":"Stop Infinite Loops All",
+                    "type":"communicate",
+                    "tryInline":"true",
+                    "format":"Advanced Hold: Stop All Infinite Loops",
+                    "data" :[
+                    ]
+                 }
+            ],
+            "states": [
+                {
+                    "id": "advancedhold_connected",
+                    "type": "choice",
+                    "desc": "Advanced Hold Plugin Connected",
+                    "default": "No",
+                    "valueChoices": [
+                        "No",
+                        "Yes"
+                    ]
+                }
+            ],
+            "events": []
+        }
+    ]
+}
