@@ -18,10 +18,10 @@ TPClient.on("Action", (message,hold) => {
   console.log(pluginId, ": DEBUG : ACTION ", JSON.stringify(message), "hold", hold);
 
   if( hold ) {
-    heldAction[message.actionId] = true;
+    heldAction[message.data[0].value] = true;
   }
   else if ( hold === false ) {
-    delete heldAction[message.actionId];
+    delete heldAction[message.data[0].value];
     return; //do not continue, don't need this to trigger the holdtrigger_action
   }
 
@@ -42,11 +42,12 @@ TPClient.on("Action", (message,hold) => {
 /* Functions */
 const advancedHoldAction = async (message, hold) => {
   const factor = ( message.data[2].value == 'milliseconds' ) ? 1 : 1000;
-  const timeMSeconds = parseInt(message.data[1].value,10) * factor;
+  let timeMSeconds = parseInt(message.data[1].value,10) * factor;
+  timeMSeconds = ( timeMSeconds < 100 ) ? 100 : timeMSeconds; //Only allow min of 100 milliseconds (until I get action update validation fixed)
   const heldState = message.data[0].value;
-  while( hold === undefined || heldAction[message.actionId] ) {
+  while( hold === undefined || heldAction[heldState] ) {
     await new Promise(r => setTimeout(r,timeMSeconds));
-    if( hold === undefined || !heldAction[message.actionId] ) { 
+    if( hold === undefined || !heldAction[heldState] ) { 
       existingStates[heldState].value = 0;
       break; 
     }
@@ -57,7 +58,8 @@ const advancedHoldAction = async (message, hold) => {
 
 const advancedHoldInfiniteAction = message => {
   const factor = ( message.data[2].value == 'milliseconds' ) ? 1 : 1000;
-  const timeMSeconds = parseInt(message.data[1].value,10) * factor;
+  let timeMSeconds = parseInt(message.data[1].value,10) * factor;
+  timeMSeconds = ( timeMSeconds < 100 ) ? 100 : timeMSeconds; //Only allow min of 100 milliseconds (until I get action update validation fixed)
   const heldState = message.data[0].value;
   infiniteLoop(heldState,timeMSeconds);
 };
