@@ -5,6 +5,7 @@ const updateUrl = "https://raw.githubusercontent.com/spdermn02/TouchPortal_Advan
 
 const HOLD_TRIGGER_STATE_NAME = 'Advanced_Hold_State';
 const HOLD_TRIGGER_INFINITE_STATE_NAME = 'Advanced_Hold_Infinite_State';
+const MAX_INFINITE_COUNT = 100000;
 
 let numStates = 0;
 let numInfiniteStates = 0;
@@ -47,11 +48,11 @@ const advancedHoldAction = async (message, hold) => {
   const heldState = message.data[0].value;
   while( hold === undefined || heldAction[heldState] ) {
     await new Promise(r => setTimeout(r,timeMSeconds));
-    if( hold === undefined || !heldAction[heldState] ) { 
+    if( hold === undefined || heldAction[heldState] === undefined ) { 
       existingStates[heldState].value = 0;
       break; 
     }
-    TPClient.stateUpdate(heldState,existingStates[heldState].value++);
+    TPClient.stateUpdate(heldState,++existingStates[heldState].value);
   }
   TPClient.stateUpdate(heldState,existingStates[heldState].value);
 };
@@ -63,10 +64,14 @@ const advancedHoldInfiniteAction = message => {
   const heldState = message.data[0].value;
   infiniteLoop(heldState,timeMSeconds);
 };
+
 const infiniteLoop = (stateId, timeMSeconds) => {
   logIt('DEBUG',`infiniteLoop started for state id: ${stateId}`);
     const loopMe = sid => {
-      TPClient.stateUpdate(sid,infiniteStates[sid].value++);
+      TPClient.stateUpdate(sid,++infiniteStates[sid].value);
+      if( infiniteStates[sid].value >= MAX_INFINITE_COUNT ){
+        infiniteStates[sid].value = 0;
+      }
     }
     let infiniteInterval = setInterval( _ => { loopMe(stateId) }, timeMSeconds);
     infiniteActions[stateId] = infiniteInterval;
@@ -85,12 +90,14 @@ const advancedHoldStopSpecificInfiniteAction = message => {
 };
 
 const advancedHoldStopAllInfiniteAction = _ => {
+  const updateStates = [];
   Object.keys(infiniteActions).forEach( stateId => {
     clearInterval(infiniteActions[stateId]);
     delete infiniteActions[stateId];
     infiniteStates[stateId].value = 0
-    TPClient.stateUpdate(stateId,infiniteStates[stateId].value);
+    updateStates.push({'id': stateId, 'value': infiniteStates[stateId].value});
   });
+  TPClient.stateUpdateMany(updateStates);
 };
 
 /* End Functions */
