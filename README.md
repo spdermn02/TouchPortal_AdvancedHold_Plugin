@@ -16,8 +16,8 @@ Be able to now either Press or Hold a button to do different Actions
 
 ## Installation
 1. Download the .tpp file for your platform
-   1. [Windows](installers/TPAdvancedHold-Win.tpp)
-   2. [Mac](installers/TPAdvancedHold-Mac.tpp)
+   1. [Windows](Installers/TPAdvancedHold-Win.tpp)
+   2. [Mac](Installers/TPAdvancedHold-Mac.tpp)
 2. Import plugin using the Wrench Icon in the top of the TouchPortal PC Window
 3. Click "Ok" when told it Successfully Imported
 4. If this is your first time importing the plugin also click "Trust Always" so you are not prompted every time Touch Portal starts
