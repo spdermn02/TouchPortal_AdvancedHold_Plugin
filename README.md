@@ -1,6 +1,6 @@
-# TouchPortal Advanced Hold
+# TouchPortal Advanced Hold Plugin
 
-- [TouchPortal Advanced Hold](#touchportal-advanced-hold)
+- [TouchPortal Advanced Hold Plugin](#touchportal-advanced-hold-plugin)
   - [Description](#description)
   - [Installation](#installation)
   - [Settings](#settings)
@@ -8,9 +8,9 @@
   - [Examples](#examples)
 
 ## Description
-Be able to hold a key down and repeat a set of actions every X seconds/milliseconds
-Press a button and turn on an infinite loop to repeat every X seconds/milliseconds
-Be able to now either Press or Hold a button to do different Actions
+Be able to hold a key down and repeat a set of actions every X seconds/milliseconds <br>
+Press a button and turn on an infinite loop to repeat every X seconds/milliseconds <br>
+Be able to now either Press or Hold a button to do different Actions:
    - Hold for 2 seconds trigger action via an onEvent trigger
    - Tap button and trigger actions in onPressed only
 
