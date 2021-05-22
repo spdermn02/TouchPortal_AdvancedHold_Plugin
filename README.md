@@ -1,5 +1,8 @@
 # TouchPortal Advanced Hold Plugin
 
+![Downloads](https://img.shields.io/github/downloads/spdermn02/TouchPortal_AdvancedHold_Plugin/total)
+![MIT License](https://img.shields.io/github/license/spdermn02/TouchPortal_AdvancedHold_Plugin)
+![Language](https://img.shields.io/github/languages/top/spdermn02/TouchPortal_AdvancedHold_Plugin)
 - [TouchPortal Advanced Hold Plugin](#touchportal-advanced-hold-plugin)
   - [Description](#description)
   - [Installation](#installation)
