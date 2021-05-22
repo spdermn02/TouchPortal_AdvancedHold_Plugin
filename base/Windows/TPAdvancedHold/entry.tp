@@ -134,18 +134,7 @@
                     ]
                  }
             ],
-            "states": [
-                {
-                    "id": "advancedhold_connected",
-                    "type": "choice",
-                    "desc": "Advanced Hold Plugin Connected",
-                    "default": "No",
-                    "valueChoices": [
-                        "No",
-                        "Yes"
-                    ]
-                }
-            ],
+            "states": [],
             "events": []
         }
     ]
