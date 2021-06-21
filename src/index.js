@@ -12,22 +12,28 @@ let numInfiniteStates = 0;
 let settings = {};
 let existingStates = {};
 let infiniteStates = {};
-let heldAction = {};
+let heldActions = {};
 let infiniteActions = {};
 
 TPClient.on("Action", (message,hold) => {
   console.log(pluginId, ": DEBUG : ACTION ", JSON.stringify(message), "hold", hold);
 
-  if( hold ) {
-    heldAction[message.data[0].value] = true;
-  }
-  else if ( hold === false ) {
-    delete heldAction[message.data[0].value];
-    return; //do not continue, don't need this to trigger the holdtrigger_action
+  if ( hold === false ) {
+    clearInterval(heldActions[message.data[0].value]);
+    delete heldActions[message.data[0].value];
+    existingStates[message.data[0].value].value = 0;
+    TPClient.stateUpdate(message.data[0].value,existingStates[message.data[0].value].value);
+    return; //do not continue
   }
 
   if (message.actionId === "advancedhold_action") {
     advancedHoldAction(message,hold);
+  }
+  else if( message.actionId === "advancedhold_stop_hold_specific_action" ){
+    advancedHoldStopSpecific(message);
+  }
+  else if( message.actionId === "advancedhold_stop_all_hold_action" ){
+    advancedHoldStopAll(message);
   }
   else if( message.actionId === "advancedhold_infinite_action") {
     advancedHoldInfiniteAction(message);
@@ -46,15 +52,39 @@ const advancedHoldAction = async (message, hold) => {
   let timeMSeconds = parseInt(message.data[1].value,10) * factor;
   timeMSeconds = ( timeMSeconds < 100 ) ? 100 : timeMSeconds; //Only allow min of 100 milliseconds (until I get action update validation fixed)
   const heldState = message.data[0].value;
-  while( hold === undefined || heldAction[heldState] ) {
-    await new Promise(r => setTimeout(r,timeMSeconds));
-    if( hold === undefined || heldAction[heldState] === undefined ) { 
-      existingStates[heldState].value = 0;
-      break; 
+  const loopMe = sid => {
+    TPClient.stateUpdate(sid,++existingStates[sid].value);
+    if( existingStates[sid].value >= MAX_INFINITE_COUNT ){
+      existingStates[sid].value = 0;
     }
-    TPClient.stateUpdate(heldState,++existingStates[heldState].value);
   }
-  TPClient.stateUpdate(heldState,existingStates[heldState].value);
+  let holdInterval = setInterval( _ => { loopMe(heldState) }, timeMSeconds);
+  heldActions[heldState] = holdInterval;
+
+  //TPClient.stateUpdate(heldState,existingStates[heldState].value);
+};
+
+const advancedHoldStopSpecific = message => {
+  const stateId = message.data[0].value;
+  if(! heldActions.hasOwnProperty(stateId) ) {
+    logIt('WARN',`State Id ${stateId} was not being held`);
+    return;
+  }
+  clearInterval(heldActions[stateId]);
+  delete heldActions[stateId];
+  existingStates[stateId].value = 0
+  TPClient.stateUpdate(stateId,existingStates[stateId].value);
+};
+
+const advancedHoldStopAll = message => {
+  const updateStates = [];
+  Object.keys(heldActions).forEach( stateId => {
+    clearInterval(heldActions[stateId]);
+    delete heldActions[stateId];
+    existingStates[stateId].value = 0
+    updateStates.push({'id': stateId, 'value': existingStates[stateId].value});
+  });
+  TPClient.stateUpdateMany(updateStates);
 };
 
 const advancedHoldInfiniteAction = message => {

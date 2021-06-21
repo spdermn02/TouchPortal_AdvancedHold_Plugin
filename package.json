@@ -1,16 +1,18 @@
 {
   "name": "touchportal_advancedhold",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Hold A button for X length, and increment state while being held every X <timeframe>",
-  "bin": "src/index.js",
+  "bin": {
+    "touchportal_advancedhold": "src/index.js"
+  },
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
     "pkg": "pkg .",
     "pkg-win": "pkg --targets node14-win-x64 .",
     "pkg-mac": "pkg --targets node14-macos-x64 .",
-    "build-win": "pkg --targets node14-win-x64 . && move touchportal_advancedhold.exe base/Windows/TPAdvancedHold/ && del Installers\\TPAdvancedHold-Win.tpp && cd base\\Windows && 7z a -tzip ../../Installers/TPAdvancedHold-Win.tpp TPAdvancedHold",
-    "build-mac": "pkg --targets node14-macos-x64 . && move touchportal_advancedhold base/Mac/TPAdvancedHold/ && del Installers\\TPAdvancedHold-Mac.tpp && cd base\\Mac && 7z a -tzip ../../Installers/TPAdvancedHold-Mac.tpp TPAdvancedHold"
+    "build-win": "pkg --targets node14-win-x64 . && move touchportal_advancedhold.exe base/Windows/TPAdvancedHold/ && del Installers\\TPAdvancedHold-Win.tpp && cd base\\Windows && 7z a -tzip ../../Installers/TPAdvancedHold-Win.tpp TPAdvancedHold && del TPAdvancedHold\\touchportal_advancedhold.exe",
+    "build-mac": "pkg --targets node14-macos-x64 . && move touchportal_advancedhold base/Mac/TPAdvancedHold/ && del Installers\\TPAdvancedHold-Mac.tpp && cd base\\Mac && 7z a -tzip ../../Installers/TPAdvancedHold-Mac.tpp TPAdvancedHold && del TPAdvancedHold\\touchportal_advancedhold"
   },
   "pkg": {},
   "repository": {

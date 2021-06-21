@@ -1,7 +1,7 @@
 {
     "sdk": 3,
-    "version": 1000,
-    "TPDiscord_Version": "1.0.0",
+    "version": 1100,
+    "TPDiscord_Version": "1.1.0",
     "name": "Touch Portal Advanced Hold",
     "id": "TouchPortal_AdvancedHold",
     "plugin_start_cmd": "sh %TP_PLUGIN_FOLDER%TPAdvancedHold/start_touchportal_advancedhold.sh",
@@ -67,6 +67,34 @@
                              "seconds"
                          ]
                         }
+                    ]
+                 },
+                 {
+                    "id": "advancedhold_stop_hold_specific_action",
+                    "prefix": "Advanced Hold:",
+                    "name":"Stop Hold Specific",
+                    "type":"communicate",
+                    "tryInline":"true",
+                    "format":"Advanced Hold: Stop Hold for {$advancedhold_state_id$}",
+                    "data" :[
+                        {
+                            "id":"advancedhold_state_id",
+                            "type": "choice",
+                            "label":  "Advanced Hold State Id",
+                            "default": "",
+                            "valueChoices":[
+                            ]
+                        }
+                    ]
+                 },
+                 {
+                    "id": "advancedhold_stop_all_hold_action",
+                    "prefix": "Advanced Hold:",
+                    "name":"Stop All Holds",
+                    "type":"communicate",
+                    "tryInline":"true",
+                    "format":"Advanced Hold: Stop All Holds",
+                    "data" :[
                     ]
                  },
                  {
