@@ -4,6 +4,8 @@
 ![MIT License](https://img.shields.io/github/license/spdermn02/TouchPortal_AdvancedHold_Plugin)
 ![Language](https://img.shields.io/github/languages/top/spdermn02/TouchPortal_AdvancedHold_Plugin)
 - [TouchPortal Advanced Hold Plugin](#touchportal-advanced-hold-plugin)
+  - [ChangeLog](#changelog)
+  - [Known Issues](#known-issues)
   - [Description](#description)
   - [Installation](#installation)
   - [Settings](#settings)
@@ -17,6 +19,20 @@
   - [Versioning](#versioning)
   - [Authors](#authors)
   - [License](#license)
+
+## ChangeLog
+```
+v1.1.0
+  - added 2 new actions
+    - "Stop Hold Specific"
+      - Specify a specific hold state to stop holding (in case of page change) and set state back to 0
+    - "Stop All Holds"
+      - Will killy held actions currently running and set state back to 0
+  - Added Known Issues to README
+```
+
+## Known Issues
+1) On MacOS, the sh script used to start the plugin doesn't like to work when the main folder path contains a space character. Still doing research on what to do to solve it.
 
 ## Description
 Be able to hold a key down and repeat a set of actions every X seconds/milliseconds <br>
@@ -71,6 +87,10 @@ Each state created will be in this format:
 - Hold Increment
   - Increment a specific State Value by 1 every X seconds/milliseconds
   - On release, return value to 0
+- Stop Hold Specific
+  - Stop a specific state's hold from executing and return value to 0
+- Stop All Holds
+  - Stop all running holds and return value to 0
 - Infinite Loop
   - Increment (until stopped, or plugin is closed) a specific State Value by 1 every X seconds/milliseconds
 - Stop Infinite Loop Specific
