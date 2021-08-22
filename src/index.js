@@ -196,6 +196,10 @@ TPClient.on("Settings", async (data) => {
         TPClient.choiceUpdate('advancedhold_infinite_state_id',infiniteStateList);
     }
 });
+
+TPClient.on("Broadcast", () => {
+  advancedHoldStopAll();
+})
   
 function logIt() {
   var curTime = new Date().toISOString();

@@ -29,6 +29,9 @@ v1.1.0
     - "Stop All Holds"
       - Will killy held actions currently running and set state back to 0
   - Added Known Issues to README
+v1.2.0
+  - added in Broadcast Message Event Handling
+    - Will run the "Stop All Holds" action to force stop all hold counters
 ```
 
 ## Known Issues
