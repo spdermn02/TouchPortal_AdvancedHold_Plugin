@@ -1,6 +1,6 @@
 {
   "name": "touchportal_advancedhold",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Hold A button for X length, and increment state while being held every X <timeframe>",
   "bin": {
     "touchportal_advancedhold": "src/index.js"
