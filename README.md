@@ -32,6 +32,8 @@ v1.1.0
 v1.2.0
   - added in Broadcast Message Event Handling
     - Will run the "Stop All Holds" action to force stop all hold counters
+v1.2.1
+  - fix broadcast message breaking plugin, needed to check to make sure we had states to update
 ```
 
 ## Known Issues

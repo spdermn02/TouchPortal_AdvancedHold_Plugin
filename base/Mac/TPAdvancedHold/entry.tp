@@ -1,7 +1,7 @@
 {
     "sdk": 3,
-    "version": 1200,
-    "TPDiscord_Version": "1.2.0",
+    "version": 1201,
+    "TPDiscord_Version": "1.2.1",
     "name": "Touch Portal Advanced Hold",
     "id": "TouchPortal_AdvancedHold",
     "plugin_start_cmd": "sh %TP_PLUGIN_FOLDER%TPAdvancedHold/start_touchportal_advancedhold.sh",

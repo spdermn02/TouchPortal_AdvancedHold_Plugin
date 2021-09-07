@@ -84,7 +84,9 @@ const advancedHoldStopAll = message => {
     existingStates[stateId].value = 0
     updateStates.push({'id': stateId, 'value': existingStates[stateId].value});
   });
-  TPClient.stateUpdateMany(updateStates);
+  if( updateStates.length > 0 ) {
+    TPClient.stateUpdateMany(updateStates);
+  }
 };
 
 const advancedHoldInfiniteAction = message => {
