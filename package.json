@@ -11,8 +11,12 @@
     "pkg": "pkg .",
     "pkg-win": "pkg --targets node14-win-x64 .",
     "pkg-mac": "pkg --targets node14-macos-x64 .",
-    "build-win": "pkg --targets node14-win-x64 . && move touchportal_advancedhold.exe base/Windows/TPAdvancedHold/ && del Installers\\TPAdvancedHold-Win.tpp && cd base\\Windows && 7z a -tzip ../../Installers/TPAdvancedHold-Win.tpp TPAdvancedHold && del TPAdvancedHold\\touchportal_advancedhold.exe",
-    "build-mac": "pkg --targets node14-macos-x64 . && move touchportal_advancedhold base/Mac/TPAdvancedHold/ && del Installers\\TPAdvancedHold-Mac.tpp && cd base\\Mac && 7z a -tzip ../../Installers/TPAdvancedHold-Mac.tpp TPAdvancedHold && del TPAdvancedHold\\touchportal_advancedhold"
+    "build-win": "run-script-os",
+    "build-mac": "run-script-os",
+    "build-win:win32":"pkg --targets node14-win-x64 . && move touchportal_advancedhold.exe base/Windows/TPAdvancedHold/ && del Installers\\TPAdvancedHold-Win.tpp && cd base\\Windows && 7z a -tzip ../../Installers/TPAdvancedHold-Win.tpp TPAdvancedHold && del TPAdvancedHold\\touchportal_advancedhold.exe",
+    "build-win:linux:darwin":"pkg --targets node14-win-x64 . && mv touchportal_advancedhold.exe base/Windows/TPAdvancedHold/ && rm -rf Installers/TPAdvancedHold-Win.tpp && cd base/Windows && zip -r ../../Installers/TPAdvancedHold-Win.tpp TPAdvancedHold && rm -rf TPAdvancedHold/touchportal_advancedhold.exe",
+    "build-mac:win32": "pkg --targets node14-macos-x64 . && move touchportal_advancedhold base/Mac/TPAdvancedHold/ && del Installers\\TPAdvancedHold-Mac.tpp && cd base\\Mac && 7z a -tzip ../../Installers/TPAdvancedHold-Mac.tpp TPAdvancedHold && del TPAdvancedHold\\touchportal_advancedhold",
+    "build-mac:linux:darwin": "pkg --targets node14-macos-x64 . && mv touchportal_advancedhold base/Mac/TPAdvancedHold/ && rm -rf Installers/TPAdvancedHold-Mac.tpp && cd base/Mac && zip -r ../../Installers/TPAdvancedHold-Mac.tpp TPAdvancedHold && rm -rf TPAdvancedHold/touchportal_advancedhold"
   },
   "pkg": {},
   "repository": {
@@ -31,5 +35,8 @@
   "homepage": "https://github.com/spdermn02/TouchPortal_AdvancedHold_Plugin#readme",
   "dependencies": {
     "touchportal-api": "^2.1.1"
+  },
+  "devDependencies": {
+    "run-script-os": "^1.1.6"
   }
 }
